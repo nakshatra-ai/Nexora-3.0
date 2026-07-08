@@ -14,6 +14,7 @@ import EngineerReviewHistory from '../pages/EngineerReviewHistory/EngineerReview
 import RequestDetails from '../pages/RequestDetails/RequestDetails';
 import EngineerDashboard from '../pages/EngineerDashboard/EngineerDashboard';
 import Engineers from '../pages/Engineers/Engineers';
+import AdminUserManagementPage from '../pages/AdminUserManagement/AdminUserManagementPage';
 import Profile from '../pages/Profile/Profile';
 import Settings from '../pages/Settings/Settings';
 
@@ -63,7 +64,7 @@ const LayoutWrapper = () => {
 
   // Restrict direct URL access to engineers panel
   const path = window.location.pathname;
-  if (path.includes('/engineers') && currentUser.role !== 'admin') {
+  if ((path.includes('/engineers') || path.includes('/admin/users')) && currentUser.role !== 'admin') {
     return <Navigate to="/dashboard" replace />;
   }
 
@@ -172,6 +173,7 @@ function App() {
                   <Route path="/engineer-history" element={<EngineerReviewHistory />} />
                   <Route path="/request/:id" element={<RequestDetails />} />
                   <Route path="/engineers" element={<Engineers />} />
+                  <Route path="/admin/users" element={<AdminUserManagementPage />} />
                   <Route path="/profile" element={<Profile />} />
                   <Route path="/settings" element={<Settings />} />
                   <Route path="/billing" element={<Billing />} />

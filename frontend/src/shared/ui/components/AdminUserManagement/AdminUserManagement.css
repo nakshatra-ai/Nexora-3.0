@@ -1,0 +1,276 @@
+.admin-user-management-wrapper {
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 20px;
+  padding: 24px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  color: white;
+  margin-top: 24px;
+}
+
+.aum-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+.aum-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin: 0 0 4px 0;
+}
+
+.aum-subtitle {
+  color: #94a3b8;
+  font-size: 0.875rem;
+  margin: 0;
+}
+
+.aum-add-btn {
+  background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(37, 99, 235, 0.3);
+}
+
+.aum-add-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(37, 99, 235, 0.4);
+}
+
+.aum-table-container {
+  overflow-x: auto;
+}
+
+.aum-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+}
+
+.aum-table th {
+  padding: 16px;
+  background: rgba(0, 0, 0, 0.2);
+  color: #94a3b8;
+  font-weight: 600;
+  font-size: 0.875rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.aum-table td {
+  padding: 16px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  vertical-align: middle;
+}
+
+.aum-table tbody tr {
+  transition: background 0.2s ease;
+}
+
+.aum-table tbody tr:hover {
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.aum-td-name {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-weight: 500;
+}
+
+.aum-avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #8b5cf6 0%, #6d28d9 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  color: white;
+}
+
+.aum-badge {
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.role-customer { background: rgba(59, 130, 246, 0.2); color: #60a5fa; }
+.role-engineer { background: rgba(139, 92, 246, 0.2); color: #a78bfa; }
+.role-admin { background: rgba(245, 158, 11, 0.2); color: #fbbf24; }
+
+.status-active { background: rgba(16, 185, 129, 0.2); color: #34d399; }
+.status-inactive { background: rgba(239, 68, 68, 0.2); color: #f87171; }
+
+.aum-action-buttons {
+  display: flex;
+  gap: 8px;
+}
+
+.aum-btn-edit, .aum-btn-delete {
+  padding: 6px 12px;
+  border-radius: 8px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  cursor: pointer;
+  border: none;
+  transition: all 0.2s ease;
+}
+
+.aum-btn-edit {
+  background: rgba(255, 255, 255, 0.1);
+  color: white;
+}
+
+.aum-btn-edit:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.aum-btn-delete {
+  background: rgba(239, 68, 68, 0.1);
+  color: #f87171;
+}
+
+.aum-btn-delete:hover {
+  background: rgba(239, 68, 68, 0.2);
+}
+
+/* Modal Styles */
+.aum-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(5px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.aum-modal {
+  background: #1e293b;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 24px;
+  width: 100%;
+  max-width: 500px;
+  padding: 32px;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+}
+
+.aum-modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+.aum-modal-header h3 {
+  margin: 0;
+  font-size: 1.25rem;
+}
+
+.aum-close-btn {
+  background: transparent;
+  border: none;
+  color: #94a3b8;
+  font-size: 1.5rem;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+
+.aum-close-btn:hover {
+  color: white;
+}
+
+.aum-form-group {
+  margin-bottom: 16px;
+}
+
+.aum-form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.aum-form label {
+  display: block;
+  margin-bottom: 8px;
+  font-size: 0.875rem;
+  color: #94a3b8;
+  font-weight: 500;
+}
+
+.aum-form input, .aum-form select {
+  width: 100%;
+  padding: 12px;
+  border-radius: 12px;
+  background: rgba(0, 0, 0, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: white;
+  font-size: 0.875rem;
+  transition: border-color 0.3s;
+}
+
+.aum-form input:focus, .aum-form select:focus {
+  outline: none;
+  border-color: #3b82f6;
+}
+
+.aum-form select option {
+  background: #1e293b;
+  color: white;
+}
+
+.aum-modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-top: 32px;
+}
+
+.aum-btn-cancel {
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: white;
+  padding: 10px 20px;
+  border-radius: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.aum-btn-cancel:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.aum-btn-save {
+  background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+  color: white;
+  border: none;
+  padding: 10px 24px;
+  border-radius: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 4px 15px rgba(37, 99, 235, 0.3);
+  transition: all 0.3s ease;
+}
+
+.aum-btn-save:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(37, 99, 235, 0.4);
+}

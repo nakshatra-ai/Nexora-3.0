@@ -31,7 +31,10 @@ export default function Sidebar() {
     { name: 'Engineer Review History', path: '/engineer-history', icon: FiPlusSquare },
     { name: 'Billing & Invoices', path: '/billing', icon: FiCreditCard },
     { name: 'Notifications', path: '/notifications', icon: FiBell },
-    ...(currentUser?.role === 'admin' ? [{ name: 'Engineers', path: '/engineers', icon: FiUsers }] : []),
+    ...(currentUser?.role === 'admin' ? [
+      { name: 'Engineers', path: '/engineers', icon: FiUsers },
+      { name: 'User Management', path: '/admin/users', icon: FiUsers }
+    ] : []),
     { name: 'Profile', path: '/profile', icon: FiUser },
     { name: 'Settings', path: '/settings', icon: FiSettings },
   ];
