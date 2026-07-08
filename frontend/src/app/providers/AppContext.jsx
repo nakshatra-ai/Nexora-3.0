@@ -1,4 +1,5 @@
 import React, { createContext, useState, useEffect } from 'react';
+import axios from 'axios';
 import useTheme from '../../shared/lib/hooks/useTheme';
 
 export const AppContext = createContext();
@@ -184,36 +185,19 @@ export const AppProvider = ({ children }) => {
     ]);
   };
 
-  const loginUser = (email, password, roleHint) => {
-    let role = 'customer';
-    let name = 'Aman Verma';
-    
-    if (email.includes('admin')) {
-      role = 'admin';
-      name = 'Admin Account';
-    } else if (email.includes('engineer') || email.includes('rahul')) {
-      role = 'engineer';
-      name = 'Rahul Sharma';
+  const loginUser = async (email, password, roleHint) => {
+    try {
+      const response = await axios.post('http://localhost:8000/api/admin/auth/login/', {
+        email,
+        password
+      });
+      const userObj = response.data.user;
+      setCurrentUser(userObj);
+      return userObj;
+    } catch (error) {
+      console.error('Login failed:', error);
+      throw error;
     }
-
-    // If a role hint is provided from the role-selector UI, honour it
-    // (allows any email to log in as the selected role for demo purposes)
-    if (roleHint === 'engineer') {
-      role = 'engineer';
-      if (name === 'Aman Verma') name = 'Field Engineer';
-    } else if (roleHint === 'admin') {
-      role = 'admin';
-      name = 'Admin Account';
-    } else if (roleHint === 'user' || roleHint === 'customer') {
-      role = 'customer';
-      if (name === 'Aman Verma' || name === 'Rahul Sharma' || name === 'Admin Account') {
-        name = 'Aman Verma';
-      }
-    }
-
-    const userObj = { name, role, email };
-    setCurrentUser(userObj);
-    return userObj;
   };
 
   const logoutUser = () => {

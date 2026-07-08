@@ -1,5 +1,6 @@
 import React, { useContext, useState, useEffect, useRef } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
+import axios from 'axios';
 import { AppContext } from '../../app/providers/AppContext';
 import { motion, AnimatePresence } from 'framer-motion';
 import { FcGoogle } from 'react-icons/fc';
@@ -96,9 +97,8 @@ function calcStrength(pw) {
 export default function Register() {
   /* ── preserved auth logic ── */
   const { setCurrentUser } = useContext(AppContext);
-  const [role, setRole]                   = useState('customer');
+  const [role, setRole]                   = useState('Customer');
   const [fullName, setFullName]           = useState('');
-  const [username, setUsername]           = useState('');
   const [email, setEmail]                 = useState('');
   const [phone, setPhone]                 = useState('');
   const [password, setPassword]           = useState('');
@@ -112,8 +112,6 @@ export default function Register() {
 
   const validate = () => {
     if (!fullName.trim()) return 'Full name is required.';
-    if (!username.trim() || username.length < 3) return 'Username must be at least 3 characters.';
-    if (!/^[a-zA-Z0-9_]+$/.test(username)) return 'Username can only contain letters, numbers, and underscores.';
     if (!email.trim()) return 'Email is required.';
     if (!/^\S+@\S+\.\S+$/.test(email)) return 'Please enter a valid email address.';
     if (!phone.trim()) return 'Phone number is required.';
@@ -128,12 +126,22 @@ export default function Register() {
     const err = validate();
     if (err) { setRegError(err); return; }
     setLoading(true);
-    await new Promise(r => setTimeout(r, 700));
-    const newUser = { name: fullName, username, email, phone, role };
-    setSuccess(true);
-    await new Promise(r => setTimeout(r, 800));
-    setCurrentUser(newUser);
-    navigate('/dashboard');
+    try {
+      const response = await axios.post('http://localhost:8000/api/admin/auth/register/', {
+        full_name: fullName,
+        email,
+        phone_number: phone,
+        password,
+        role
+      });
+      setSuccess(true);
+      await new Promise(r => setTimeout(r, 800));
+      setCurrentUser(response.data.user);
+      navigate('/dashboard');
+    } catch (err) {
+      setRegError(err.response?.data?.error || 'Registration failed. Please try again.');
+      setLoading(false);
+    }
   };
   /* ── end preserved auth logic ── */
 
@@ -202,13 +210,9 @@ export default function Register() {
               <div className="auth-two-col">
                 <AuthInput label="Full Name" icon={FiUser} value={fullName}
                   onChange={e => setFullName(e.target.value)} placeholder="John Doe" required />
-                <AuthInput label="Username" icon={FiAtSign} value={username}
-                  onChange={e => setUsername(e.target.value)} placeholder="john_doe" required
-                  hint={username.length > 0 && username.length < 3 ? 'Min 3 characters' : ''} />
+                <AuthInput label="Email Address" icon={FiMail} type="email" value={email}
+                  onChange={e => setEmail(e.target.value)} placeholder="john@example.com" required />
               </div>
-
-              <AuthInput label="Email Address" icon={FiMail} type="email" value={email}
-                onChange={e => setEmail(e.target.value)} placeholder="john@example.com" required />
 
               <AuthInput label="Phone Number" icon={FiPhone} value={phone}
                 onChange={e => setPhone(e.target.value)} placeholder="+91 98765 43210" required />

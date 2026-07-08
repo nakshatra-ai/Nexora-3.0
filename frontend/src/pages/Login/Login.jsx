@@ -255,7 +255,7 @@ export default function Login() {
     setLoading(true);
     await new Promise(r => setTimeout(r, 650));
     try {
-      loginUser(email, password, 'user');
+      await loginUser(email, password, 'user');
       navigate('/dashboard');
     } catch (err) {
       setLoginError('Invalid credentials. Please verify your details.');
@@ -274,7 +274,7 @@ export default function Login() {
     
     try {
       // Mock logged-in user profile from Google / Apple identity provider
-      loginUser(`oauth_${provider.toLowerCase()}@example.com`, 'oauth_token', 'user');
+      await loginUser(`oauth_${provider.toLowerCase()}@example.com`, 'oauth_token', 'user');
       navigate('/dashboard');
     } catch (err) {
       setLoginError(`OAuth verification with ${provider} failed.`);
@@ -292,7 +292,7 @@ export default function Login() {
       setLoading(true);
       await new Promise(r => setTimeout(r, 800));
       try {
-        loginUser(email, password, 'engineer');
+        await loginUser(email, password, 'engineer');
         navigate('/dashboard');
       } catch (err) {
         setLoginError('Authentication failed. Please verify credentials.');
@@ -308,10 +308,14 @@ export default function Login() {
     }
   };
 
-  const handleAdminSuccess = () => {
-    loginUser('admin@nexora.com', 'admin', 'admin');
-    setShowAdminModal(false);
-    navigate('/dashboard');
+  const handleAdminSuccess = async () => {
+    try {
+      await loginUser('admin@nexora.com', 'admin123', 'admin');
+      setShowAdminModal(false);
+      navigate('/dashboard');
+    } catch (err) {
+      console.error(err);
+    }
   };
   /* ── end preserved auth logic ── */
 

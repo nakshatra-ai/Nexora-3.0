@@ -1,26 +1,35 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import './AdminUserManagement.css';
 
-const INITIAL_USERS = [
-  { id: 1, name: 'John Doe', email: 'john@example.com', role: 'Customer', phone: '+1 555-0192', status: 'Active' },
-  { id: 2, name: 'Alice Smith', email: 'alice@nexora.com', role: 'Engineer', phone: '+1 555-0344', status: 'Active' },
-  { id: 3, name: 'Robert Fox', email: 'robert.fox@example.com', role: 'Customer', phone: '+1 555-0991', status: 'Inactive' },
-  { id: 4, name: 'Sarah Connor', email: 'sarah.c@nexora.com', role: 'Engineer', phone: '+1 555-1200', status: 'Active' },
-];
-
 export default function AdminUserManagement() {
-  const [users, setUsers] = useState(INITIAL_USERS);
+  const [users, setUsers] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [editingUser, setEditingUser] = useState(null);
-  const [formData, setFormData] = useState({ name: '', email: '', role: 'Customer', phone: '', status: 'Active' });
+  const [formData, setFormData] = useState({ email: '', role: 'Customer', is_active: true, password: '' });
+
+  const API_URL = 'http://localhost:8000/api/admin/users/';
+
+  useEffect(() => {
+    fetchUsers();
+  }, []);
+
+  const fetchUsers = async () => {
+    try {
+      const response = await axios.get(API_URL);
+      setUsers(response.data);
+    } catch (error) {
+      console.error('Error fetching users:', error);
+    }
+  };
 
   const handleOpenModal = (user = null) => {
     if (user) {
       setEditingUser(user);
-      setFormData(user);
+      setFormData({ email: user.email, role: user.role, is_active: user.is_active, password: '' });
     } else {
       setEditingUser(null);
-      setFormData({ name: '', email: '', role: 'Customer', phone: '', status: 'Active' });
+      setFormData({ email: '', role: 'Customer', is_active: true, password: '' });
     }
     setIsModalOpen(true);
   };
@@ -35,19 +44,30 @@ export default function AdminUserManagement() {
     setFormData(prev => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    if (editingUser) {
-      setUsers(users.map(u => u.id === editingUser.id ? { ...formData, id: editingUser.id } : u));
-    } else {
-      setUsers([...users, { ...formData, id: Date.now() }]);
+    try {
+      if (editingUser) {
+        await axios.put(`${API_URL}${editingUser.id}/`, formData);
+      } else {
+        await axios.post(API_URL, formData);
+      }
+      fetchUsers();
+      handleCloseModal();
+    } catch (error) {
+      console.error('Error saving user:', error);
+      alert('Failed to save user. Please try again.');
     }
-    handleCloseModal();
   };
 
-  const handleDelete = (id) => {
+  const handleDelete = async (id) => {
     if (window.confirm("Are you sure you want to completely remove this user?")) {
-      setUsers(users.filter(u => u.id !== id));
+      try {
+        await axios.delete(`${API_URL}${id}/`);
+        fetchUsers();
+      } catch (error) {
+        console.error('Error deleting user:', error);
+      }
     }
   };
 
@@ -67,10 +87,8 @@ export default function AdminUserManagement() {
         <table className="aum-table">
           <thead>
             <tr>
-              <th>Name</th>
               <th>Email</th>
               <th>Role</th>
-              <th>Phone</th>
               <th>Status</th>
               <th>Actions</th>
             </tr>
@@ -78,20 +96,15 @@ export default function AdminUserManagement() {
           <tbody>
             {users.map(user => (
               <tr key={user.id}>
-                <td className="aum-td-name">
-                  <div className="aum-avatar">{user.name.charAt(0)}</div>
-                  {user.name}
-                </td>
                 <td>{user.email}</td>
                 <td>
-                  <span className={`aum-badge role-${user.role.toLowerCase()}`}>
+                  <span className={`aum-badge role-${user.role?.toLowerCase()}`}>
                     {user.role}
                   </span>
                 </td>
-                <td>{user.phone}</td>
                 <td>
-                  <span className={`aum-badge status-${user.status.toLowerCase()}`}>
-                    {user.status}
+                  <span className={`aum-badge status-${user.is_active ? 'active' : 'inactive'}`}>
+                    {user.is_active ? 'Active' : 'Inactive'}
                   </span>
                 </td>
                 <td>
@@ -120,12 +133,12 @@ export default function AdminUserManagement() {
             </div>
             <form onSubmit={handleSubmit} className="aum-form">
               <div className="aum-form-group">
-                <label>Full Name</label>
-                <input type="text" name="name" value={formData.name} onChange={handleChange} required />
-              </div>
-              <div className="aum-form-group">
                 <label>Email Address</label>
                 <input type="email" name="email" value={formData.email} onChange={handleChange} required />
+              </div>
+              <div className="aum-form-group">
+                <label>Password (Leave blank to keep existing)</label>
+                <input type="password" name="password" value={formData.password} onChange={handleChange} required={!editingUser} />
               </div>
               <div className="aum-form-row">
                 <div className="aum-form-group">
@@ -138,15 +151,11 @@ export default function AdminUserManagement() {
                 </div>
                 <div className="aum-form-group">
                   <label>Status</label>
-                  <select name="status" value={formData.status} onChange={handleChange}>
-                    <option value="Active">Active</option>
-                    <option value="Inactive">Inactive</option>
+                  <select name="is_active" value={formData.is_active} onChange={(e) => setFormData(prev => ({ ...prev, is_active: e.target.value === 'true' }))}>
+                    <option value="true">Active</option>
+                    <option value="false">Inactive</option>
                   </select>
                 </div>
-              </div>
-              <div className="aum-form-group">
-                <label>Phone Number</label>
-                <input type="text" name="phone" value={formData.phone} onChange={handleChange} required />
               </div>
               <div className="aum-modal-actions">
                 <button type="button" className="aum-btn-cancel" onClick={handleCloseModal}>Cancel</button>

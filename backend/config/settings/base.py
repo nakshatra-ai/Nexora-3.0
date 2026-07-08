@@ -19,6 +19,7 @@ INSTALLED_APPS = [
 
     # Third Party
     'rest_framework',
+    'corsheaders',
 
     # Custom Domain Apps
     'apps.customer.auth.apps.CustomerAuthConfig',
@@ -33,6 +34,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -92,3 +94,6 @@ STATIC_URL = 'static/'
 DATABASE_ROUTERS = ['apps.shared.db_routers.router.RoleDatabaseRouter']
 
 AUTH_USER_MODEL = 'admin_user_management.User'
+
+CORS_ALLOW_ALL_ORIGINS = True # For development only
+CORS_ALLOW_CREDENTIALS = True
