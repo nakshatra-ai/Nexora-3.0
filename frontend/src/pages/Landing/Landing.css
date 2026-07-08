@@ -1,0 +1,172 @@
+html {
+  scroll-behavior: smooth;
+}
+
+.landing-layout {
+  position: relative;
+  overflow-x: hidden;
+  background-color: var(--background);
+  transition: background-color var(--transition-normal);
+}
+
+/* ========================================
+   SECTION BACKGROUNDS WITH CUSTOM ARTWORK
+   ======================================== */
+
+/* 1. Hero Section: Cinematic Telecom AI Operations Banner */
+.hero-bg {
+  position: relative;
+  background-image: url('../../assets/images/hero-banner.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+.hero-bg::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(var(--bg-rgb, 5, 8, 22), 0.7) 0%,
+    rgba(var(--bg-rgb, 5, 8, 22), 0.85) 60%,
+    var(--background) 100%
+  );
+  z-index: 1;
+  pointer-events: none;
+}
+
+/* 2. About Section: Enterprise Operations Banner */
+.about-bg {
+  position: relative;
+  background-image: url('../../assets/images/about-banner.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+.about-bg::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    var(--background) 0%,
+    rgba(var(--bg-rgb, 5, 8, 22), 0.75) 20%,
+    rgba(var(--bg-rgb, 5, 8, 22), 0.75) 80%,
+    var(--background) 100%
+  );
+  z-index: 1;
+  pointer-events: none;
+}
+
+/* 3. Services Section: Telecom Equipment & Infrastructure Banner */
+.services-bg {
+  position: relative;
+  background-image: url('../../assets/images/services-banner.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+.services-bg::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    var(--background) 0%,
+    rgba(var(--bg-rgb, 5, 8, 22), 0.8) 15%,
+    rgba(var(--bg-rgb, 5, 8, 22), 0.8) 85%,
+    var(--background) 100%
+  );
+  z-index: 1;
+  pointer-events: none;
+}
+
+/* 4. AI Features Section: Neural Network & Automation Banner */
+.ai-bg {
+  position: relative;
+  background-image: url('../../assets/images/ai-banner.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+.ai-bg::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    var(--background) 0%,
+    rgba(var(--bg-rgb, 5, 8, 22), 0.78) 15%,
+    rgba(var(--bg-rgb, 5, 8, 22), 0.78) 85%,
+    var(--background) 100%
+  );
+  z-index: 1;
+  pointer-events: none;
+}
+
+/* 5. Contact Section: Support Center Banner */
+.contact-bg {
+  position: relative;
+  background-image: url('../../assets/images/contact-banner.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+.contact-bg::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    var(--background) 0%,
+    rgba(var(--bg-rgb, 5, 8, 22), 0.82) 15%,
+    rgba(var(--bg-rgb, 5, 8, 22), 0.82) 85%,
+    var(--background) 100%
+  );
+  z-index: 1;
+  pointer-events: none;
+}
+
+/* ========================================
+   DECORATIVE FLOATING AMBIENT GLOW ORBS
+   ======================================== */
+.glow-orb {
+  position: absolute;
+  border-radius: var(--radius-full);
+  pointer-events: none;
+  filter: blur(140px);
+  z-index: 1;
+}
+
+.glow-orb-primary {
+  width: 400px;
+  height: 400px;
+  background: var(--primary);
+  opacity: 0.1;
+  animation: floatOrb 12s infinite alternate ease-in-out;
+}
+
+.glow-orb-accent {
+  width: 450px;
+  height: 450px;
+  background: var(--accent);
+  opacity: 0.08;
+  animation: floatOrb 18s infinite alternate-reverse ease-in-out;
+}
+
+@keyframes floatOrb {
+  0% { transform: translate(0px, 0px) scale(1); }
+  100% { transform: translate(60px, 40px) scale(1.15); }
+}
+
+/* ========================================
+   PREMIUM MICRO-INTERACTION UTILITIES
+   ======================================== */
+.premium-hover-card {
+  transition: all var(--transition-normal);
+}
+.premium-hover-card:hover {
+  transform: translateY(-5px) scale(1.01);
+  box-shadow: 0 20px 30px -10px rgba(0, 229, 255, 0.1);
+  border-color: var(--accent);
+}

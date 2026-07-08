@@ -1,0 +1,9 @@
+/* Page-specific styling for the Service Request List */
+
+.request-list-header {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.request-list-hover-row:hover {
+  background: rgba(255, 255, 255, 0.02);
+}

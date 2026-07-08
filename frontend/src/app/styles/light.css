@@ -1,0 +1,44 @@
+:root, .light-theme {
+  /* Core Surfaces — NOT plain white, layered soft blues */
+  --background: #f0f4f8;
+  --bg-rgb: 240, 244, 248;
+  --surface: #ffffff;
+  --card-bg: rgba(255, 255, 255, 0.75);
+  --card-border: rgba(37, 99, 235, 0.08);
+  --border-color: rgba(15, 23, 42, 0.08);
+  
+  /* Typography — Slate Colors for optimal readability */
+  --text-main: #090D1F;      /* Almost black/deep navy */
+  --text-sub: #1E293B;       /* Dark slate gray */
+  --text-muted: #334155;     /* Slate gray */
+  --text-sec-head: #0F172A;  /* Near black */
+  --text-capt: #475569;      /* Medium slate */
+  
+  /* Primary — Vibrant Azure Blue */
+  --primary: #2563eb;
+  --primary-hover: #1d4ed8;
+  --primary-light: rgba(37, 99, 235, 0.1);
+  
+  /* Accent — Vivid Cyan */
+  --accent: #0891b2;
+  --accent-glow: rgba(8, 145, 178, 0.12);
+  
+  /* Semantic Colors */
+  --success: #059669;
+  --success-light: rgba(5, 150, 105, 0.12);
+  --warning: #d97706;
+  --warning-light: rgba(217, 119, 6, 0.12);
+  --danger: #dc2626;
+  --danger-light: rgba(220, 38, 38, 0.1);
+  
+  /* Layout Surfaces */
+  --sidebar-bg: #f6f8fc;
+  --navbar-bg: rgba(240, 244, 248, 0.82);
+  --input-bg: rgba(226, 232, 240, 0.45);
+  --input-border: rgba(15, 23, 42, 0.1);
+
+  /* Premium Light Mode Shadows — Softer, warmer, with color */
+  --shadow-card: 0 1px 3px rgba(15, 23, 42, 0.04), 0 4px 12px rgba(37, 99, 235, 0.04);
+  --shadow-card-hover: 0 8px 30px rgba(37, 99, 235, 0.08), 0 2px 8px rgba(15, 23, 42, 0.04);
+  --shadow-elevated: 0 12px 40px rgba(37, 99, 235, 0.1), 0 4px 12px rgba(15, 23, 42, 0.05);
+}

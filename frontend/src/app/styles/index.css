@@ -1,0 +1,39 @@
+@import "tailwindcss";
+
+@import "./variables.css";
+@import "./light.css";
+@import "./dark.css";
+@import "./global.css";
+@import "./animations.css";
+@import "./components.css";
+
+/* Map CSS Theme variables to custom Tailwind v4 theme variables */
+@theme {
+  --color-bg-base: var(--background);
+  --color-surface-base: var(--surface);
+  --color-card-base: var(--card-bg);
+  --color-border-base: var(--border-color);
+  
+  --color-text-base: var(--text-main);
+  --color-text-secondary-base: var(--text-sub);
+  --color-text-muted-base: var(--text-muted);
+  --color-text-sec-head: var(--text-sec-head);
+  --color-text-capt: var(--text-capt);
+  
+  --color-primary-base: var(--primary);
+  --color-primary-hover-base: var(--primary-hover);
+  --color-primary-light-base: var(--primary-light);
+  
+  --color-accent-base: var(--accent);
+  --color-accent-glow-base: var(--accent-glow);
+  
+  --color-success-base: var(--success);
+  --color-success-light-base: var(--success-light);
+  --color-warning-base: var(--warning);
+  --color-warning-light-base: var(--warning-light);
+  --color-danger-base: var(--danger);
+  --color-danger-light-base: var(--danger-light);
+  
+  --font-sans: var(--font-sans);
+  --font-display: var(--font-display);
+}

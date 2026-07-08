@@ -1,0 +1,38 @@
+.dark-theme {
+  --background: #050816;
+  --bg-rgb: 5, 8, 22;
+  --surface: #0b1129;
+  --card-bg: rgba(17, 24, 53, 0.4);
+  --card-border: rgba(255, 255, 255, 0.06);
+  --border-color: rgba(255, 255, 255, 0.05);
+  /* Typography — Optimized contrast colors */
+  --text-main: #FFFFFF;
+  --text-sub: #CBD5E1;
+  --text-muted: #94A3B8;
+  --text-sec-head: #E2E8F0;
+  --text-capt: #64748B;
+  
+  --primary: #2563eb;
+  --primary-hover: #3b82f6;
+  --primary-light: rgba(37, 99, 235, 0.15);
+  
+  --accent: #00e5ff;
+  --accent-glow: rgba(0, 229, 255, 0.2);
+  
+  --success: #00ff9d;
+  --success-light: rgba(0, 255, 157, 0.15);
+  --warning: #ffb800;
+  --warning-light: rgba(255, 184, 0, 0.15);
+  --danger: #ff4d6d;
+  --danger-light: rgba(255, 77, 109, 0.15);
+  
+  --sidebar-bg: #030510;
+  --navbar-bg: rgba(5, 8, 22, 0.85);
+  --input-bg: rgba(255, 255, 255, 0.03);
+  --input-border: rgba(255, 255, 255, 0.05);
+
+  /* Premium Dark Mode Shadows */
+  --shadow-card: 0 1px 3px rgba(0, 0, 0, 0.3), 0 4px 12px rgba(0, 229, 255, 0.03);
+  --shadow-card-hover: 0 8px 30px rgba(0, 229, 255, 0.08), 0 2px 8px rgba(0, 0, 0, 0.3);
+  --shadow-elevated: 0 12px 40px rgba(0, 229, 255, 0.1), 0 4px 12px rgba(0, 0, 0, 0.4);
+}

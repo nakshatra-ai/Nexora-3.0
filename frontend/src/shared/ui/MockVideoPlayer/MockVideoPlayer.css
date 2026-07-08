@@ -1,0 +1,299 @@
+/* ─── MockVideoPlayer v2 CSS ─────────────────────────────────────────────── */
+.mvp-frame {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  background-color: #00050f;
+  border: 1px solid rgba(0, 229, 255, 0.12);
+  border-radius: var(--radius-lg, 12px);
+  overflow: hidden;
+  box-shadow:
+    0 20px 60px rgba(0, 0, 0, 0.9),
+    0 0 40px rgba(0, 229, 255, 0.04),
+    inset 0 0 80px rgba(0, 0, 40, 0.4);
+}
+.mvp-fullscreen {
+  position: fixed !important;
+  inset: 0;
+  width: 100vw !important;
+  height: 100vh !important;
+  aspect-ratio: auto !important;
+  border-radius: 0 !important;
+  z-index: 9999;
+  border: none !important;
+}
+
+/* Canvas */
+.mvp-canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Cinematic letterboxes */
+.mvp-lb-top,
+.mvp-lb-bottom {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  height: 7%;
+  pointer-events: none;
+  z-index: 4;
+  transition: height 0.3s ease;
+}
+.mvp-lb-top {
+  top: 0;
+  background: linear-gradient(to bottom, #000 60%, transparent);
+}
+.mvp-lb-bottom {
+  bottom: 0;
+  background: linear-gradient(to top, #000 60%, transparent);
+}
+.mvp-fullscreen .mvp-lb-top,
+.mvp-fullscreen .mvp-lb-bottom {
+  height: 9%;
+}
+
+/* HUD overlays */
+.mvp-hud-tl,
+.mvp-hud-tr {
+  position: absolute;
+  top: 9%;
+  font-family: 'Courier New', monospace;
+  font-size: 7px;
+  line-height: 1.65;
+  color: rgba(0, 229, 255, 0.35);
+  pointer-events: none;
+  z-index: 5;
+}
+.mvp-hud-tl { left: 3%; text-align: left; }
+.mvp-hud-tr { right: 3%; text-align: right; }
+
+.mvp-hud-logo {
+  font-family: 'Sora', sans-serif;
+  font-size: 10px;
+  font-weight: 800;
+  color: rgba(0, 229, 255, 0.55);
+  letter-spacing: 0.2em;
+  margin-bottom: 2px;
+}
+.mvp-hud-logo span { color: #fff; }
+
+/* Title card — scene narrative */
+.mvp-title-card {
+  position: absolute;
+  bottom: 14%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 76%;
+  max-width: 620px;
+  background: rgba(2, 6, 18, 0.72);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(var(--scene-color, 0, 229, 255), 0.15);
+  border-top: 1px solid var(--scene-color, #00e5ff);
+  border-radius: 6px;
+  padding: 8px 16px 10px;
+  text-align: center;
+  z-index: 5;
+  pointer-events: none;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.6), 0 0 20px rgba(0, 229, 255, 0.04);
+}
+.mvp-scene-tag {
+  font-family: 'Sora', sans-serif;
+  font-size: 8px;
+  font-weight: 800;
+  color: var(--scene-color, #00e5ff);
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  margin-bottom: 2px;
+  opacity: 0.9;
+}
+.mvp-scene-title {
+  font-family: 'Sora', sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  color: #f1f5f9;
+  margin-bottom: 3px;
+  letter-spacing: 0.02em;
+}
+.mvp-scene-sub {
+  font-family: var(--font-sans, system-ui, sans-serif);
+  font-size: 9px;
+  color: rgba(203, 213, 225, 0.75);
+  line-height: 1.5;
+}
+
+/* Pause overlay */
+.mvp-pause-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+  backdrop-filter: blur(3px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 8;
+  cursor: pointer;
+}
+.mvp-play-btn-big {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background: rgba(0, 229, 255, 0.1);
+  border: 1.5px solid #00e5ff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #00e5ff;
+  font-size: 20px;
+  box-shadow: 0 0 30px rgba(0, 229, 255, 0.25);
+  transition: all 0.25s cubic-bezier(0.25, 1, 0.5, 1);
+}
+.mvp-pause-overlay:hover .mvp-play-btn-big {
+  scale: 1.1;
+  background: rgba(0, 229, 255, 0.2);
+  box-shadow: 0 0 50px rgba(0, 229, 255, 0.4);
+}
+
+/* Controls bar */
+.mvp-controls {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  padding: 10px 14px 10px;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.92) 50%, transparent);
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.35s ease;
+}
+.mvp-controls-visible {
+  opacity: 1;
+  pointer-events: auto;
+}
+.mvp-frame:hover .mvp-controls {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* Timeline */
+.mvp-timeline-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.mvp-timeline {
+  position: relative;
+  width: 100%;
+  height: 3px;
+  background: rgba(0, 229, 255, 0.12);
+  border-radius: 100px;
+  cursor: pointer;
+  transition: height 0.2s ease;
+}
+.mvp-timeline:hover { height: 5px; }
+.mvp-progress {
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  background: linear-gradient(to right, #2563eb, var(--bar-color, #00e5ff));
+  border-radius: 100px;
+  box-shadow: 0 0 8px var(--bar-color, #00e5ff);
+  transition: width 0.1s linear;
+}
+.mvp-chapter-dot {
+  position: absolute;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: rgba(0, 229, 255, 0.35);
+  border: 1px solid rgba(0, 229, 255, 0.5);
+  transition: all 0.2s ease;
+}
+.mvp-chapter-dot.active {
+  background: var(--dot-color, #00e5ff);
+  box-shadow: 0 0 8px var(--dot-color, #00e5ff);
+  width: 8px;
+  height: 8px;
+}
+.mvp-time-labels {
+  display: flex;
+  justify-content: space-between;
+  font-family: monospace;
+  font-size: 7px;
+  color: rgba(0, 229, 255, 0.4);
+}
+
+/* Button row */
+.mvp-btn-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.mvp-btn-group {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.mvp-btn {
+  background: transparent;
+  border: 1px solid rgba(0, 229, 255, 0.15);
+  border-radius: 4px;
+  color: rgba(0, 229, 255, 0.7);
+  width: 22px;
+  height: 22px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  padding: 0;
+}
+.mvp-btn:hover {
+  border-color: #00e5ff;
+  color: #00e5ff;
+  background: rgba(0, 229, 255, 0.08);
+  box-shadow: 0 0 10px rgba(0, 229, 255, 0.1);
+}
+.mvp-btn-play {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  border-color: rgba(0, 229, 255, 0.35);
+  color: #00e5ff;
+}
+.mvp-btn-play:hover {
+  box-shadow: 0 0 18px rgba(0, 229, 255, 0.25);
+}
+.mvp-scene-counter {
+  font-family: 'Sora', sans-serif;
+  font-size: 8px;
+  font-weight: 700;
+  color: rgba(0, 229, 255, 0.6);
+  letter-spacing: 0.1em;
+}
+.mvp-scene-counter span { opacity: 0.5; }
+.mvp-quality-badge {
+  font-family: 'Sora', sans-serif;
+  font-size: 7px;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  color: var(--badge-color, #00e5ff);
+  border: 1px solid var(--badge-color, #00e5ff);
+  border-radius: 3px;
+  padding: 2px 6px;
+  opacity: 0.6;
+  transition: opacity 0.2s;
+}
+.mvp-quality-badge:hover { opacity: 1; }

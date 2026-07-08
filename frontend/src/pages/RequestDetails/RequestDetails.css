@@ -1,0 +1,15 @@
+/* Page-specific styling for the Request Details screen */
+
+.details-timeline-connector::before {
+  content: '';
+  position: absolute;
+  left: 11px;
+  top: 8px;
+  bottom: 8px;
+  width: 1px;
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.details-action-dropdown {
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.5);
+}

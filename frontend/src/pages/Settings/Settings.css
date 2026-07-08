@@ -1,0 +1,5 @@
+/* Page-specific styling for the Settings screen */
+
+.settings-option-glow {
+  box-shadow: 0 0 10px rgba(0, 229, 255, 0.02);
+}
